@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.optimize import minimize
 
 #load in output file from Bernoulli.py
 data = np.loadtxt('output.txt')
@@ -27,3 +28,10 @@ plt.ylabel('relative likelyhood')
 plt.title(str(total) + " trials")
 plt.show()
     
+#minimize function to determine most likely parameter
+#negative of likelyhood function
+def min_this(p):
+    return(-((p**heads) * (1-p)**tails))
+#initial guess 0.5
+result = minimize(min_this,0.5)
+print('best fit p:',result.x[0])
